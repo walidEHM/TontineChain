@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cahier des charges – Tontine sécurisée sur blockchain</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Space+Grotesk:wght@300..700&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F5F7FF;
+      --surface:   #FFFFFF;
+      --surface2:  #EEF1FB;
+      --border:    #DDE2F4;
+      --blue:      #2B50D8;
+      --blue-light:#4C6FE8;
+      --blue-pale: #E6EBFD;
+      --navy:      #0D1535;
+      --muted:     #5A6A9A;
+      --hint:      #8899CC;
+      --green:     #1AAF78;
+      --green-bg:  #E6F8F1;
+      --red:       #D94F4F;
+      --red-bg:    #FDEAEA;
+      --amber:     #D4900A;
+      --amber-bg:  #FEF3D7;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--navy);
+      font-family: "Space Grotesk", sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+    .logo span { color: var(--blue); }
+    .header-meta p {
+      font-size: 12px;
+      color: var(--hint);
+      text-align: right;
+    }
+
+    /* Sections */
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.5rem;
+      margin-bottom: 1.8rem;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--hint);
+      margin-bottom: 1.25rem;
+    }
+    .subsection-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin: 1.5rem 0 0.8rem 0;
+    }
+    .subsection-title:first-of-type { margin-top: 0; }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
+
+    /* Typographie spécifique doc */
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--navy);
+      margin: 0 0 0.75rem 0;
+    }
+    h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--blue);
+      margin: 1rem 0 0.5rem 0;
+    }
+    .text-muted {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .badge-blue   { background: var(--blue-pale); color: var(--blue); }
+    .badge-green  { background: var(--green-bg); color: var(--green); }
+    .badge-red    { background: var(--red-bg); color: var(--red); }
+
+    /* Tableaux */
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0;
+      font-size: 14px;
+    }
+    .doc-table th, .doc-table td {
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      text-align: left;
+      vertical-align: top;
+      background: var(--surface);
+    }
+    .doc-table th {
+      background: var(--surface2);
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .doc-table tr td:first-child {
+      font-weight: 500;
+      background-color: var(--surface2);
+      width: 28%;
+    }
+
+    /* Listes */
+    .check-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .check-list li {
+      margin-bottom: 8px;
+      padding-left: 24px;
+      position: relative;
+    }
+    .check-list li::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+    .bullet-list {
+      padding-left: 1.5rem;
+      margin: 0.5rem 0;
+    }
+    .bullet-list li {
+      margin-bottom: 6px;
+    }
+
+    /* Cards pour indicateurs */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .stat-card-impact {
+      background: var(--surface2);
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--blue);
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- En-tête avec identité projet -->
+  <div class="header">
+    <div>
+      <div class="logo">Tontine<span>Chain</span></div>
+      <p style="font-size:13px;color:var(--muted);margin-top:4px;">Solution décentralisée de tontines · Bénin</p>
+    </div>
+    <div class="header-meta">
+      <p>MIABE HACKATHON 2026 – D02</p>
+      <p>Inclusion financière & DeFi</p>
+      <p>Équipe Fintech Vision</p>
+    </div>
+  </div>
+
+  <!-- Titre principal du cahier des charges -->
+  <div class="section">
+    <p class="section-label">Document cadre</p>
+    <h1>📄 Cahier des charges</h1>
+    <p style="font-size: 16px; font-weight: 500; margin-top: 0.5rem;">Tontine sécurisée sur blockchain – MVP pour l’inclusion financière au Bénin</p>
+    <div class="divider"></div>
+    <div class="text-muted">
+      <strong>Projet :</strong> Solution décentralisée de tontines pour l'inclusion financière au Bénin<br>
+      <strong>Événement :</strong> MIABE HACKATHON 2026 – D02 Inclusion financière & DeFi<br>
+      <strong>Auteur :</strong> Fintech Vision<br>
+      <strong>Version :</strong> 1.0
+    </div>
+  </div>
+
+  <!-- 1. OBJECTIF GÉNÉRAL -->
+  <div class="section">
+    <p class="section-label">01 — Vision</p>
+    <h2>Objectif général</h2>
+    <p class="text-muted">Développer un MVP fonctionnel d’une plateforme permettant à un groupe de personnes (ex. association de femmes, groupe de quartier) de créer et gérer une tontine dont les règles sont exécutées automatiquement par un smart contract, sans risque de détournement, de falsification ou de contestation.</p>
+  </div>
+
+  <!-- 2. PORTÉE FONCTIONNELLE -->
+  <div class="section">
+    <p class="section-label">02 — Périmètre</p>
+    <h2>Portée fonctionnelle</h2>
+    
+    <div class="subsection-title">2.1. Fonctionnalités obligatoires (selon phases)</div>
+    <table class="doc-table">
+      <thead>
+        <tr><th>Phase</th><th>Fonctionnalité</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Présélection</td><td>– Documentation des tontines et incidents<br>– Maquettes (création tontine, tableau de bord, paiement)<br>– Site vitrine présentant problème et solution blockchain<br>– Description du smart contract (règles encodées, déclenchement automatique, immutabilité)</td></tr>
+        <tr><td>Demi-finale</td><td>– Interface de création d’une tontine (montant, fréquence, ordre bénéficiaires)<br>– Enregistrement tracé et horodaté des cotisations<br>– Suivi clair (qui a payé, qui n’a pas payé)<br>– Libération automatique de la cagnotte au bénéficiaire du tour<br>– Démo live avec participants simulés + gestion d’un non-paiement</td></tr>
+        <tr><td>Finale</td><td>– MVP complet avec toutes règles appliquées automatiquement<br>– Gestion des cas limites : membre défaillant, retards, dissolution anticipée<br>– Documentation technique + pitch 10 min (pertes évitées sur 400-600 M USD)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="subsection-title">2.2. Règles métier à implémenter dans le smart contract</div>
+    <ul class="bullet-list">
+      <li><strong>Montant de la cotisation</strong> (ex: 5000 FCFA en stablecoin).</li>
+      <li><strong>Fréquence</strong> (chaque semaine, chaque mois) – exprimée en secondes ou en blocs.</li>
+      <li><strong>Ordre des bénéficiaires</strong> (liste d’adresses ou d’identifiants, ordre fixe défini à la création).</li>
+      <li><strong>Nombre de tours</strong> = nombre de membres.</li>
+      <li><strong>Délai de grâce</strong> pour un impayé (ex: 48h après la date de cotisation).</li>
+      <li><strong>Pénalité / exclusion</strong> : si un membre ne paie pas dans le délai, il est marqué défaillant. Il ne reçoit pas la cagnotte à son tour, sa cotisation peut être redistribuée ou utilisée pour compléter la cagnotte.</li>
+      <li><strong>Dissolution anticipée</strong> : possible uniquement si tous les membres sont d’accord (vote) ou si plus de X membres sont défaillants.</li>
+    </ul>
+  </div>
+
+  <!-- 3. CONTRAINTES TECHNIQUES -->
+  <div class="section">
+    <p class="section-label">03 — Architecture</p>
+    <h2>Contraintes techniques</h2>
+    
+    <div class="subsection-title">3.1. Blockchain & smart contract</div>
+    <ul class="bullet-list">
+      <li><strong>Réseau recommandé :</strong> Celo (cUSD/cEUR) ou Polygon (testnet) – frais faibles, stablecoins disponibles.</li>
+      <li><strong>Langage :</strong> Solidity (version 0.8.x).</li>
+      <li><strong>Dépendances :</strong> OpenZeppelin (ReentrancyGuard, Ownable si nécessaire, mais éviter la centralisation).</li>
+      <li><strong>Immutabilité :</strong> Une fois le contrat déployé, les règles (montant, fréquence, ordre) ne peuvent pas être modifiées.</li>
+      <li><strong>Transparence :</strong> Tous les membres peuvent lire l’état du contrat via un explorateur ou l’interface.</li>
+    </ul>
+
+    <div class="subsection-title">3.2. Frontend (interface utilisateur)</div>
+    <ul class="bullet-list">
+      <li><strong>Framework :</strong> React (Next.js optionnel) + TypeScript recommandé.</li>
+      <li><strong>Connexion wallet :</strong> RainbowKit (pour Ethereum/Polygon) ou @celo/dappkit (pour Celo).</li>
+      <li><strong>Intégration smart contract :</strong> ethers.js ou web3.js.</li>
+      <li><strong>Hébergement :</strong> Vercel, Netlify ou IPFS (décentralisation).</li>
+      <li><strong>Responsive :</strong> compatible mobile (les utilisateurs au Bénin utilisent surtout des smartphones).</li>
+    </ul>
+
+    <div class="subsection-title">3.3. Gestion des identités & paiements</div>
+    <ul class="bullet-list">
+      <li>Membres identifiés par <strong>adresse de wallet</strong>. Alias stocké off-chain (optionnel).</li>
+      <li>Cotisations en <strong>stablecoin</strong> (cUSD sur Celo, USDC sur Polygon) pour éviter la volatilité.</li>
+      <li>Le contrat détient les fonds jusqu’à la libération automatique – <strong>pas d’intermédiaire humain</strong>.</li>
+    </ul>
+  </div>
+
+  <!-- 4. EXIGENCES DE SÉCURITÉ -->
+  <div class="section">
+    <p class="section-label">04 — Sécurité & confiance</p>
+    <h2>Exigences de sécurité</h2>
+    <ul class="bullet-list">
+      <li><strong>Reentrancy :</strong> utiliser <code>ReentrancyGuard</code> sur les fonctions de transfert.</li>
+      <li><strong>Accès :</strong> seuls les membres inscrits peuvent payer leur cotisation.</li>
+      <li><strong>Vérifications :</strong> empêcher un membre de payer deux fois pour le même tour, empêcher un paiement hors délai.</li>
+      <li><strong>Fonds bloqués :</strong> aucun admin ne peut retirer l’argent avant le tour prévu.</li>
+      <li><strong>Fallback / receive :</strong> ne pas accepter d’envoi direct non prévu par le contrat.</li>
+    </ul>
+  </div>
+
+  <!-- 5. INTERFACES UTILISATEUR (MAQUETTES) -->
+  <div class="section">
+    <p class="section-label">05 — Expérience utilisateur</p>
+    <h2>Interfaces clés</h2>
+    <div class="subsection-title">5.1. Écran de création d’une tontine</div>
+    <ul class="bullet-list">
+      <li>Champ : montant par cotisation (FCFA / stablecoin).</li>
+      <li>Champ : fréquence (hebdomadaire / mensuelle).</li>
+      <li>Champ : liste des membres (adresses wallet ou emails).</li>
+      <li>Champ : ordre des tours (peut être déduit de la liste).</li>
+      <li>Bouton « Déployer le contrat » → génère une adresse de tontine.</li>
+    </ul>
+    <div class="subsection-title">5.2. Tableau de bord de la tontine</div>
+    <ul class="bullet-list">
+      <li>Informations générales (montant, fréquence, tour actuel, prochain bénéficiaire).</li>
+      <li>Liste des membres avec statut de paiement pour le tour en cours (payé / impayé) + historique.</li>
+      <li>Montant actuel de la cagnotte + compte à rebours.</li>
+      <li>Bouton « Payer ma cotisation » (visible uniquement pour le membre concerné, au bon moment).</li>
+    </ul>
+    <div class="subsection-title">5.3. Écran de paiement</div>
+    <ul class="bullet-list">
+      <li>Montant à payer, adresse du contrat, bouton de confirmation transaction (via wallet).</li>
+      <li>Message de confirmation / erreur.</li>
+    </ul>
+  </div>
+
+  <!-- 6. CAS LIMITES À GÉRER -->
+  <div class="section">
+    <p class="section-label">06 — Robustesse</p>
+    <h2>Cas limites (finale)</h2>
+    <table class="doc-table">
+      <thead><tr><th>Cas</th><th>Comportement attendu</th></tr></thead>
+      <tbody>
+        <tr><td>Membre ne paie pas dans le délai</td><td>Marqué « défaillant ». Il ne reçoit pas la cagnotte à son tour. Sa cotisation pour le tour en cours est perdue (ou redistribuée).</td></tr>
+        <tr><td>Plusieurs membres défaillants</td><td>Le contrat peut permettre aux membres restants de voter la dissolution ou le remplacement.</td></tr>
+        <tr><td>Dissolution anticipée</td><td>Remboursement proportionnel des fonds aux membres (après déduction des éventuelles pénalités).</td></tr>
+        <tr><td>Décès d’un membre (hors scope technique)</td><td>Le contrat ne gère pas cela directement ; c’est au groupe de fournir une nouvelle adresse via un processus off-chain.</td></tr>
+        <tr><td>Erreur de paiement (mauvais montant)</td><td>La transaction est rejetée par le contrat.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 7. CRITÈRES D’ACCEPTATION -->
+  <div class="section">
+    <p class="section-label">07 — Validation</p>
+    <h2>Critères d’acceptation (tests)</h2>
+    <ul class="check-list">
+      <li>Un groupe peut créer une tontine et définir ses règles.</li>
+      <li>Chaque membre peut payer sa cotisation une seule fois par tour.</li>
+      <li>Quand tous les membres ont payé leur tour, le contrat transfère automatiquement la cagnotte au bénéficiaire suivant.</li>
+      <li>Un membre en retard ne peut plus payer après le délai de grâce.</li>
+      <li>Le contrat ne peut pas être modifié après déploiement.</li>
+      <li>L’interface permet de visualiser en temps réel qui a payé.</li>
+    </ul>
+  </div>
+
+  <!-- 8. PLANNING INDICATIF -->
+  <div class="section">
+    <p class="section-label">08 — Organisation</p>
+    <h2>Planning hackathon (3 jours)</h2>
+    <table class="doc-table">
+      <thead><tr><th>Jour / Bloc</th><th>Activité</th></tr></thead>
+      <tbody>
+        <tr><td>Jour 1 (matin)</td><td>Finaliser documentation, maquettes, site vitrine (phase 1).</td></tr>
+        <tr><td>Jour 1 (après-midi)</td><td>Écrire le smart contract (Solidity), tests unitaires avec Hardhat.</td></tr>
+        <tr><td>Jour 2 (matin)</td><td>Développer l’interface React + connexion wallet.</td></tr>
+        <tr><td>Jour 2 (après-midi)</td><td>Intégrer le contrat, gérer les appels (payer, afficher statuts).</td></tr>
+        <tr><td>Jour 3 (matin)</td><td>Tester les cas limites (impayés, dissolution). Préparer la démo live.</td></tr>
+        <tr><td>Jour 3 (après-midi)</td><td>Préparer le pitch (slides, démo, arguments d’impact).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 9. LIVRABLES ATTENDUS -->
+  <div class="section">
+    <p class="section-label">09 — Production</p>
+    <h2>Livrables par phase</h2>
+    <ul class="bullet-list">
+      <li><strong>Phase 1 :</strong> Doc PDF + maquettes + site vitrine + description blockchain.</li>
+      <li><strong>Phase 2 :</strong> Interface fonctionnelle (création, paiement, suivi) + démo sur testnet.</li>
+      <li><strong>Phase 3 :</strong> MVP complet + gestion des cas limites + pitch 10 min.</li>
+    </ul>
+  </div>
+
+  <!-- 10. INDICATEURS D’IMPACT POUR LE PITCH -->
+  <div class="section">
+    <p class="section-label">10 — Impact mesurable</p>
+    <h2>Indicateurs clés (pitch)</h2>
+    <div class="stats-grid">
+      <div class="stat-card-impact">
+        <div class="stat-number">-99%</div>
+        <div class="stat-label">Réduction des incidents<br>(20-30% → &lt;1%)</div>
+      </div>
+      <div class="stat-card-impact">
+        <div class="stat-number">+35%</div>
+        <div class="stat-label">Augmentation de l’épargne<br>(benchmark Afrique de l’Est)</div>
+      </div>
+      <div class="stat-card-impact">
+        <div class="stat-number">80%</div>
+        <div class="stat-label">Femmes protégées<br>(premières victimes)</div>
+      </div>
+      <div class="stat-card-impact">
+        <div class="stat-number">400–600M</div>
+        <div class="stat-label">USD annuels de flux informels sécurisés</div>
+      </div>
+    </div>
+    <p class="text-muted" style="margin-top: 1rem;">✔ Pertes évitées : jusqu’à 120 M USD / an grâce à l’automatisation et la transparence blockchain.</p>
+  </div>
+
+  <!-- Pied de page / récapitulatif charte -->
+  <div class="section" style="background: var(--surface2);">
+    <p class="section-label">Identité visuelle</p>
+    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+      <div><span class="badge badge-blue">Bleu confiance #2B50D8</span> <span class="badge" style="background:var(--navy);color:white;">Navy #0D1535</span> <span class="badge badge-green">Succès #1AAF78</span></div>
+      <div><span class="badge" style="background:var(--surface);border:1px solid var(--border);">Typo : Syne + Space Grotesk</span></div>
+      <div><span class="badge badge-amber" style="background:var(--amber-bg);color:var(--amber);">Accessible & responsive</span></div>
+    </div>
+    <hr>
+    <p class="text-muted" style="font-size: 12px; text-align: center;">© MIABE HACKATHON 2026 – Solution TontineChain – conforme au cadre DAROLLO TECHNOLOGIES CORPORATION</p>
+  </div>
+  <iframe src="https://gamma.app/embed/3uicm91zcx11qo2" style="width: 700px; max-width: 100%; height: 450px" allow="fullscreen" title="Les Tontines au Bénin : Analyse du système d'épargne collective"></iframe>
+</div>
+</body>
+</html>

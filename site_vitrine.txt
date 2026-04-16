@@ -1,0 +1,265 @@
+Voici un plan indicatif détaillé pour la réalisation du site vitrine, section par section. Chaque partie décrit la disposition, les animations, le JavaScript nécessaire, et les éventuels décomptes ou compteurs animés.
+
+0. Structure générale (base HTML/CSS/JS)
+Disposition : Une seule page avec sections empilées. Navigation fixe en haut (sticky) avec liens internes (ancres). Conteneur max-width 1200px, marges auto. Mobile‑first : colonnes flex ou grid avec flex-wrap et gap.
+
+Animations globales : Apparition progressive au scroll (fade + translation Y) gérée par Intersection Observer ou une librairie légère (ex: scrollreveal ou simple CSS avec classe .reveal). Durée 0,6s.
+
+JavaScript : Menu burger pour mobile, défilement fluide vers les ancres, activation des compteurs numériques, gestion du thème (pas nécessaire). Fichier séparé ou script en ligne.
+
+1. Section Hero
+Objectif : Captiver l’utilisateur et présenter la valeur principale.
+
+Disposition :
+
+Arrière‑plan : dégradé doux (bleu marine → bleu foncé) ou image de fond subtile (tissu africain flouté).
+
+Contenu centré : titre principal (H1), sous‑titre, bouton CTA (Découvrir).
+
+Option : une illustration (icône blockchain + mains qui se serrent) à droite sur desktop, en dessous sur mobile.
+
+Animations :
+
+Entrée : texte qui apparaît avec effet de fondu et glissement vers le haut (.hero h1 délai 0s, .hero p délai 0.2s, .btn délai 0.4s).
+
+Bouton : effet de survol (changement de couleur, légère agrandissement scale(1.02)).
+
+Si illustration : apparition avec rotation légère ou effet de pulsation.
+
+JavaScript :
+
+Rien de spécifique pour la Hero, sauf le déclenchement du défilement lors du clic sur le bouton (scroll vers la section Problème).
+
+Éventuellement un effet de particules (optionnel, mais trop lourd).
+
+2. Section Problème
+Objectif : Exposer les risques des tontines traditionnelles (chiffres alarmants).
+
+Disposition :
+
+Deux colonnes (texte descriptif à gauche, cartes statistiques à droite). Sur mobile : stacking vertical.
+
+Cartes : fond blanc, ombre légère, bordure arrondie. À l’intérieur : icône (danger, argent, etc.), chiffre en grand, description courte.
+
+Trois cartes alignées horizontalement sur desktop, chacune avec un indicateur (ex: « 20-30% de tontines touchées », « Pertes : plusieurs millions FCFA », « 80% de femmes victimes »).
+
+Animations :
+
+Apparition au scroll (fade + up).
+
+Cartes : effet de survol (élévation transform: translateY(-5px), ombre plus prononcée).
+
+Les chiffres dans les cartes peuvent s’incrémenter (compteur) quand la section devient visible.
+
+JavaScript :
+
+Compteurs animés : lorsque la section entre dans le viewport, un script incrémente les chiffres (ex: de 0 à 30 pour « 30% »). Utilisation de setInterval ou requestAnimationFrame avec une limite.
+
+Gestion de la réinitialisation si on scroll plusieurs fois (optionnel).
+
+3. Section Solution blockchain
+Objectif : Expliquer simplement le concept de smart contract.
+
+Disposition :
+
+Centrée, avec une petite introduction.
+
+Schéma ou illustration : un cercle central (smart contract) relié à des icônes (membres, cagnotte, libération).
+
+Sous le schéma, trois bulles d’avantages (transparence, automatisation, immutabilité).
+
+Sur mobile, le schéma peut être simplifié ou remplacé par une infographie verticale.
+
+Animations :
+
+Apparition des éléments un par un (les connexions du schéma tracées progressivement ? Plus simple : apparition séquentielle des bulles avec délais).
+
+Survol des bulles : agrandissement + ombre.
+
+JavaScript :
+
+Rien de complexe, juste l’activation de l’animation au scroll.
+
+Option : un petit démo de « décompte » fictif pour montrer la libération automatique (ex: minuterie qui tourne). Mais pas obligatoire.
+
+4. Section Fonctionnalités clés
+Objectif : Lister les 4 grandes capacités de la plateforme.
+
+Disposition :
+
+Grille 2x2 (ou 4 colonnes sur desktop, 1 colonne sur mobile).
+
+Chaque fonctionnalité : icône (Font Awesome), titre, description courte.
+
+Espacement régulier, cartes identiques.
+
+Animations :
+
+Au scroll : apparition en cascade (chaque carte apparaît avec un petit délai successif).
+
+Survol : icône change de couleur (or), carte légèrement relevée.
+
+JavaScript :
+
+Aucun compteur, seulement l’observation d’apparition pour les animations CSS.
+
+5. Section Chiffres & Impact (avec compteurs)
+Objectif : Présenter des données quantitatives convaincantes (‑99% d’incidents, +35% d’épargne, 80% femmes, 400‑600M USD).
+
+Disposition :
+
+Quatre grands blocs (ou deux lignes de deux). Fond légèrement différent (surface alt).
+
+Chaque bloc : un chiffre en très grande taille, une unité/pourcentage, une courte légende.
+
+Centré, aéré.
+
+Animations :
+
+Apparition au scroll.
+
+Compteurs animés (JavaScript) : les chiffres partent de 0 et montent jusqu’à leur valeur cible (ex: 99%, 35, 80, 600). La durée d’animation : 2 secondes, avec easing.
+
+Un petit effet de soulignement au survol.
+
+JavaScript :
+
+Fonction startCounters() déclenchée par Intersection Observer lorsque la section est visible.
+
+Pour chaque élément avec une classe .counter, lire l’attribut data-target, puis incrémenter progressivement jusqu’à la valeur.
+
+Empêcher de rejouer si déjà compté (flag).
+
+Gérer les pourcentages et les grands nombres (ex: 400‑600 → on peut afficher « 400 M$+ » ou animer jusqu’à 600).
+
+6. Section « Comment ça marche » (étapes)
+Objectif : Visualiser le parcours utilisateur (4 étapes).
+
+Disposition :
+
+Une timeline horizontale (sur desktop) ou verticale (mobile) avec des puces numérotées.
+
+Chaque étape : titre, description courte, icône.
+
+Reliure visuelle (ligne pointillée ou trait).
+
+Animations :
+
+Apparition progressive des étapes une à une (slide from bottom).
+
+Survol d’une étape : l’icône grandit et le trait devient or.
+
+JavaScript :
+
+Rien de particulier (juste le déclenchement des animations CSS).
+
+Option : afficher un décompte de temps pour la prochaine étape (ex: « dans 12 jours ») si on simule une tontine en cours, mais ce n’est pas la priorité pour la vitrine.
+
+7. Section « Pourquoi la blockchain »
+Objectif : Détails techniques accessibles.
+
+Disposition :
+
+Deux colonnes (texte explicatif à gauche, liste d’avantages à droite).
+
+Une carte encadrée avec fond bleu marine et texte blanc pour les avantages (immuabilité, transparence, sécurité, frais minimes).
+
+Sous la carte, une note sur les frais : « Moins de 10 FCFA par transaction ».
+
+Animations :
+
+Apparition simple.
+
+Survol des puces d’avantages : décalage vers la droite.
+
+JavaScript :
+
+Aucun compteur, mais on peut intégrer un petit toggle pour afficher plus de détails techniques (pas essentiel).
+
+8. Section Équipe / Hackathon
+Objectif : Crédibiliser le projet (cadre du hackathon, ODD).
+
+Disposition :
+
+Logos des ODD (icônes des objectifs 1, 8, 10, 16) disposés en ligne.
+
+Texte : « Projet réalisé dans le cadre du MIABE HACKATHON 2026 – D02 Inclusion financière & DeFi ».
+
+Lien vers la documentation (PDF) ou vers les maquettes.
+
+Animations :
+
+Effet de rotation des logos au survol (légère).
+
+Apparition progressive.
+
+JavaScript :
+
+Rien de particulier.
+
+9. Section Appel à l’action final
+Objectif : Convertir le visiteur en testeur.
+
+Disposition :
+
+Centrée, fond or ou dégradé.
+
+Titre « Prêt à sécuriser votre tontine ? »
+
+Deux boutons : « Tester la démo » (lien vers les maquettes interactives) et « En savoir plus » (télécharger le PDF).
+
+Sous le bouton, un champ email fictif (optionnel) pour « Être averti du lancement ».
+
+Animations :
+
+Légère pulsation sur le bouton principal.
+
+Survol des boutons : inversion des couleurs.
+
+JavaScript :
+
+Gestion d’un formulaire factice (alerte « Merci, nous vous contacterons »).
+
+Ouverture des liens externes.
+
+10. Pied de page (Footer)
+Objectif : Mentions légales et liens sociaux.
+
+Disposition :
+
+Trois colonnes : copyright, liens rapides, icônes réseaux sociaux.
+
+Fond bleu marine, texte blanc cassé.
+
+Centré sur mobile.
+
+Animations :
+
+Icônes sociales : survol avec changement de couleur (or).
+
+Rien d’autre.
+
+JavaScript :
+
+Rien (ou juste l’année dynamique en JS : new Date().getFullYear()).
+
+11. Éléments transversaux JS
+Menu mobile :
+
+Bouton burger (affiché sur <768px). Au clic, affiche/masque la navigation. Animation de glissement.
+
+Défilement fluide :
+
+Tous les liens internes (ancres) utilisent preventDefault() et scrollIntoView({ behavior: 'smooth' }).
+
+Compteurs :
+
+Implémenter une fonction animateNumbers() qui observe les éléments .stat-number ou .counter.
+
+Animation au scroll :
+
+Utiliser Intersection Observer pour ajouter la classe .visible aux sections ou éléments, déclenchant les transitions CSS.
+
+Décompte (si souhaité) :
+
+Pour une éventuelle « prochaine version » ou « temps restant avant la démo », on peut placer un timer simple (ex: compte à rebours jusqu’à la date de la finale du hackathon). Mais ce n’est pas dans le cahier des charges.

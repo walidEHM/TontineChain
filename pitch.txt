@@ -1,0 +1,115 @@
+💡 1. Nom du projet (important pour le hackathon)
+
+👉 Mon choix stratégique : TontiChain (clair + mémorisable)
+
+🧠 2. Concept simplifié (à dire au jury)
+
+"TontiChain est une plateforme basée sur la blockchain qui permet de créer des tontines sécurisées, transparentes et automatisées grâce aux smart contracts."
+
+⚙️ 3. Fonctionnement (simple mais puissant)
+Étape 1 : Création
+Un utilisateur crée une tontine :
+Montant (ex: 10 000 FCFA)
+Fréquence (hebdomadaire)
+Nombre de membres
+Ordre des bénéficiaires
+
+👉 Tout est stocké dans un smart contract
+
+Étape 2 : Participation
+Chaque membre :
+Reçoit une invitation
+Se connecte
+Paye sa cotisation (Mobile Money ou crypto)
+Étape 3 : Vérification
+Tout le monde peut voir :
+Qui a payé
+Qui n’a pas payé
+Montant total
+
+👉 Transparence totale
+
+Étape 4 : Paiement automatique
+À la fin du cycle :
+Le smart contract envoie automatiquement l’argent au bénéficiaire
+
+👉 Pas d’organisateur = pas de fraude
+
+🏗️ 4. Architecture technique (important pour toi dev)
+🔹 Frontend
+React / Next.js
+UI simple (mobile-first)
+Dashboard tontine
+🔹 Backend
+Node.js ou PHP (tu peux rester sur PHP si tu veux)
+API pour gérer utilisateurs
+🔹 Blockchain
+Smart contract en Solidity
+Réseau :
+Polygon (moins cher)
+ou Ethereum testnet
+🔹 Paiement
+Mobile Money (MTN / Moov) via API
+Bridge vers crypto
+🔐 5. Smart Contract (le cœur)
+
+Il doit gérer :
+
+Liste des membres
+Montants payés
+Tour actuel
+Libération automatique
+
+👉 Exemple logique :
+
+if (tout_le_monde_a_paye) {
+   envoyer_fonds(beneficiaire);
+   passer_au_tour_suivant();
+}
+🚀 6. Fonctionnalités bonus (pour gagner)
+
+Ajoute au moins 2–3 de ces idées :
+
+⭐ Score de confiance
+Chaque membre a une réputation
+⭐ Pénalité automatique
+Retard = pénalité
+⭐ Historique exportable
+Preuve pour banque/microfinance
+⭐ Notifications SMS / WhatsApp
+🎯 7. Pitch impact (très important)
+
+Tu peux dire :
+
+"Aujourd’hui au Bénin, des millions circulent dans des tontines sans aucune sécurité.
+Avec TontiChain, nous transformons la confiance en code.
+Plus de fraude, plus de conflit, tout est automatique et transparent."
+
+💣 8. Pourquoi ton projet peut gagner
+
+Parce que :
+
+✔ Problème réel (très local)
+✔ Impact social fort (femmes + inclusion financière)
+✔ Blockchain = justifiée (pas gadget)
+✔ Scalabilité (Afrique entière)
+🧠 9. Version simple si temps court
+
+Si tu es limité :
+
+👉 Fais un MVP :
+
+UI simple
+Simulation de smart contract (pas besoin réel)
+Dashboard + logique
+🔥 10. Conseil stratégique (très important)
+
+Ne fais pas trop compliqué.
+
+👉 Le jury veut :
+
+Clarté
+Impact
+Démo fonctionnelle
+
+Pas un système parfait.

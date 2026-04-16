@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TontineChain — Style Guide</title>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F5F7FF;
+      --surface:   #FFFFFF;
+      --surface2:  #EEF1FB;
+      --border:    #DDE2F4;
+      --blue:      #2B50D8;
+      --blue-light:#4C6FE8;
+      --blue-pale: #E6EBFD;
+      --navy:      #0D1535;
+      --muted:     #5A6A9A;
+      --hint:      #8899CC;
+      --green:     #1AAF78;
+      --green-bg:  #E6F8F1;
+      --red:       #D94F4F;
+      --red-bg:    #FDEAEA;
+      --amber:     #D4900A;
+      --amber-bg:  #FEF3D7;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--navy);
+      font-family: "Poppins", sans-serif;
+      min-height: 100vh;
+      padding: 2.5rem 1rem;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+
+    .logo span { color: var(--blue); }
+
+    .header-meta p {
+      font-size: 12px;
+      color: var(--hint);
+      text-align: right;
+    }
+
+    /* ── Section ── */
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--hint);
+      margin-bottom: 1.25rem;
+    }
+
+    .subsection-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+      margin-top: 1.5rem;
+    }
+
+    .subsection-title:first-of-type { margin-top: 0; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
+
+    /* ── Colors ── */
+    .color-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .swatch {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      width: 130px;
+    }
+
+    .swatch-block { height: 68px; }
+
+    .swatch-info { padding: 8px 10px; background: var(--surface); }
+    .swatch-name { font-size: 12px; font-weight: 500; color: var(--navy); }
+    .swatch-hex  { font-size: 11px; font-family: monospace; color: var(--muted); margin-top: 1px; }
+    .swatch-role { font-size: 10px; color: var(--hint); margin-top: 2px; }
+
+    /* ── Typography ── */
+    .type-stack { display: flex; flex-direction: column; gap: 14px; }
+
+    .type-row {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .type-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .type-meta {
+      width: 180px;
+      flex-shrink: 0;
+    }
+
+    .type-meta p { font-size: 11px; color: var(--hint); line-height: 1.5; }
+    .type-sample { flex: 1; }
+
+    /* ── Buttons ── */
+    .btn-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+    .btn {
+      display: inline-block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 24px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.15s;
+    }
+
+    .btn:hover { opacity: 0.85; }
+
+    .btn-primary   { background: var(--blue); color: #fff; }
+    .btn-secondary { background: var(--blue-pale); color: var(--blue); border: 1.5px solid var(--blue); }
+    .btn-ghost     { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .btn-danger    { background: var(--red-bg); color: var(--red); border: 1px solid #F5BEBE; }
+
+    /* ── Badges ── */
+    .badge-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .badge-blue   { background: var(--blue-pale); color: var(--blue); }
+    .badge-green  { background: var(--green-bg); color: var(--green); }
+    .badge-red    { background: var(--red-bg); color: var(--red); }
+    .badge-amber  { background: var(--amber-bg); color: var(--amber); }
+    .badge-gray   { background: #F0F1F5; color: var(--muted); }
+
+    /* ── Inputs ── */
+    .input-demo {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 14px;
+      color: var(--navy);
+      font-family: 'Space Grotesk', sans-serif;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .input-demo:focus { border-color: var(--blue); }
+
+    .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 560px; }
+
+    /* ── Stat cards ── */
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+
+    .stat-card {
+      background: var(--surface2);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--border);
+    }
+
+    .stat-card-label { font-size: 11px; color: var(--hint); margin-bottom: 4px; }
+    .stat-card-value { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; color: var(--navy); line-height: 1; }
+    .stat-card-sub   { font-size: 12px; margin-top: 4px; }
+
+    /* ── Member list ── */
+    .member-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .member-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: var(--surface2);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--blue-pale);
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .member-name { font-size: 14px; font-weight: 500; flex: 1; }
+    .member-turn { font-size: 12px; color: var(--muted); }
+
+    /* ── Preview UI ── */
+    .preview-wrap {
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .preview-nav-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      height: 52px;
+    }
+
+    .preview-nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+      margin-right: 12px;
+    }
+
+    .preview-nav-logo span { color: var(--blue); }
+
+    .nav-link { font-size: 13px; color: var(--muted); text-decoration: none; }
+    .nav-link.active { color: var(--blue); font-weight: 500; }
+
+    .preview-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+
+    .preview-hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+
+    .preview-hero-card h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .preview-hero-card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .preview-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+    .preview-stat {
+      background: var(--surface2);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+    }
+
+    .preview-stat-n {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    .preview-stat-l { font-size: 10px; color: var(--hint); margin-top: 2px; }
+
+    .preview-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .preview-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+    }
+
+    .panel-title {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--hint);
+      margin-bottom: 10px;
+    }
+
+    .progress-bar-bg {
+      background: var(--surface2);
+      border-radius: 20px;
+      height: 8px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 20px;
+      background: var(--blue);
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div class="logo">Tontine<span>Chain</span></div>
+      <p style="font-size:13px;color:var(--muted);margin-top:4px;">Épargne collective · Blockchain · Bénin</p>
+    </div>
+    <div class="header-meta">
+      <p>Style Guide v1.0</p>
+      <p>MIABE Hackathon 2026</p>
+      <p>Équipe Fintech Vision</p>
+    </div>
+  </div>
+
+  <!-- Couleurs -->
+  <div class="section">
+    <p class="section-label">01 — Palette de couleurs</p>
+
+    <p class="subsection-title">Couleurs primaires</p>
+    <div class="color-row">
+      <div class="swatch">
+        <div class="swatch-block" style="background:#F5F7FF;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Background</p>
+          <p class="swatch-hex">#F5F7FF</p>
+          <p class="swatch-role">Fond de page</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#FFFFFF;border-bottom:1px solid #DDE2F4;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Surface</p>
+          <p class="swatch-hex">#FFFFFF</p>
+          <p class="swatch-role">Cards, panels</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#EEF1FB;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Surface alt</p>
+          <p class="swatch-hex">#EEF1FB</p>
+          <p class="swatch-role">Inputs, rows</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#2B50D8;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Bleu chaîne</p>
+          <p class="swatch-hex">#2B50D8</p>
+          <p class="swatch-role">CTA, accent</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#4C6FE8;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Bleu hover</p>
+          <p class="swatch-hex">#4C6FE8</p>
+          <p class="swatch-role">Liens, hover</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#0D1535;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Navy</p>
+          <p class="swatch-hex">#0D1535</p>
+          <p class="swatch-role">Texte principal</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="subsection-title">Couleurs fonctionnelles</p>
+    <div class="color-row">
+      <div class="swatch">
+        <div class="swatch-block" style="background:#1AAF78;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Succès</p>
+          <p class="swatch-hex">#1AAF78</p>
+          <p class="swatch-role">Paiement reçu</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#D94F4F;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Alerte</p>
+          <p class="swatch-hex">#D94F4F</p>
+          <p class="swatch-role">Incident, retard</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#D4900A;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Warning</p>
+          <p class="swatch-hex">#D4900A</p>
+          <p class="swatch-role">En attente</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#DDE2F4;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Border</p>
+          <p class="swatch-hex">#DDE2F4</p>
+          <p class="swatch-role">Bordures</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Typographie -->
+  <div class="section">
+    <p class="section-label">02 — Typographie</p>
+    <div class="type-stack">
+      <div class="type-row">
+        <div class="type-meta"><p>Syne 800<br>Hero, logo</p></div>
+        <div class="type-sample">
+          <span style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:#0D1535;letter-spacing:-0.02em;">TontineChain</span>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><p>Syne 700<br>Titres de section</p></div>
+        <div class="type-sample">
+          <span style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#0D1535;">Épargne collective sécurisée</span>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><p>Space Grotesk 500<br>Sous-titres, labels</p></div>
+        <div class="type-sample">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:500;color:#0D1535;">Chaque cotisation est enregistrée de façon immuable.</span>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><p>Space Grotesk 400<br>Corps, descriptions</p></div>
+        <div class="type-sample">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:400;color:#5A6A9A;line-height:1.6;">La transparence est totale et permanente pour tous les membres. Personne ne détient la cagnotte — elle est dans le contrat.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Boutons -->
+  <div class="section">
+    <p class="section-label">03 — Boutons</p>
+    <div class="btn-row">
+      <button class="btn btn-primary">Créer une tontine</button>
+      <button class="btn btn-secondary">Rejoindre</button>
+      <button class="btn btn-ghost">Annuler</button>
+      <button class="btn btn-danger">Signaler un incident</button>
+    </div>
+  </div>
+
+  <!-- Badges -->
+  <div class="section">
+    <p class="section-label">04 — Badges de statut</p>
+    <div class="badge-row">
+      <span class="badge badge-blue">Blockchain</span>
+      <span class="badge badge-green">Payé</span>
+      <span class="badge badge-red">Incident</span>
+      <span class="badge badge-amber">En attente</span>
+      <span class="badge badge-gray">Inactif</span>
+    </div>
+  </div>
+
+  <!-- Inputs -->
+  <div class="section">
+    <p class="section-label">05 — Champs de saisie</p>
+    <div class="input-group">
+      <input class="input-demo" placeholder="Nom de la tontine" />
+      <input class="input-demo" placeholder="Montant cotisation (FCFA)" />
+      <input class="input-demo" placeholder="Nombre de membres" />
+      <input class="input-demo" placeholder="Fréquence (mensuelle...)" />
+    </div>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="section">
+    <p class="section-label">06 — Cartes statistiques</p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <p class="stat-card-label">Cagnotte actuelle</p>
+        <p class="stat-card-value">125 000</p>
+        <p class="stat-card-sub" style="color:var(--muted);">FCFA · Tour 3/8</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-card-label">Membres actifs</p>
+        <p class="stat-card-value">8/8</p>
+        <p class="stat-card-sub" style="color:var(--green);">Tous à jour</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-card-label">Prochain tour</p>
+        <p class="stat-card-value">J-12</p>
+        <p class="stat-card-sub" style="color:var(--amber);">Amina reçoit</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-card-label">Total épargné</p>
+        <p class="stat-card-value">375k</p>
+        <p class="stat-card-sub" style="color:var(--muted);">Sur 3 cycles</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Membres -->
+  <div class="section">
+    <p class="section-label">07 — Liste membres</p>
+    <div class="member-list">
+      <div class="member-row">
+        <div class="avatar">FA</div>
+        <div class="member-name">Fatima Alassane</div>
+        <div class="member-turn">Tour 1 · <span style="color:var(--green);font-weight:500;">Reçu</span></div>
+        <span class="badge badge-green">Payé</span>
+      </div>
+      <div class="member-row">
+        <div class="avatar">AB</div>
+        <div class="member-name">Amina Bello</div>
+        <div class="member-turn">Tour 3 · <span style="color:var(--blue);font-weight:500;">En cours</span></div>
+        <span class="badge badge-blue">Actif</span>
+      </div>
+      <div class="member-row">
+        <div class="avatar">KD</div>
+        <div class="member-name">Khadija Dossou</div>
+        <div class="member-turn">Tour 5 · <span style="color:var(--amber);font-weight:500;">Attente</span></div>
+        <span class="badge badge-amber">En attente</span>
+      </div>
+      <div class="member-row">
+        <div class="avatar" style="background:var(--red-bg);color:var(--red);">MG</div>
+        <div class="member-name">Marie Gandonou</div>
+        <div class="member-turn">Tour 7 · <span style="color:var(--red);font-weight:500;">Retard</span></div>
+        <span class="badge badge-red">Incident</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aperçu UI -->
+  <div class="section">
+    <p class="section-label">08 — Aperçu interface</p>
+    <div class="preview-wrap">
+      <div class="preview-nav-bar">
+        <div class="preview-nav-logo">Tontine<span>Chain</span></div>
+        <a href="#" class="nav-link active">Dashboard</a>
+        <a href="#" class="nav-link">Mes tontines</a>
+        <a href="#" class="nav-link">Historique</a>
+        <a href="#" class="nav-link">Membres</a>
+      </div>
+      <div class="preview-body">
+        <div class="preview-hero-card">
+          <h2>Tontine "Femmes du marché Dantokpa"</h2>
+          <p>8 membres · Cotisation mensuelle 15 000 FCFA · Cycle en cours depuis mars 2026</p>
+          <div class="preview-stats">
+            <div class="preview-stat">
+              <p class="preview-stat-n">120k</p>
+              <p class="preview-stat-l">Cagnotte FCFA</p>
+            </div>
+            <div class="preview-stat">
+              <p class="preview-stat-n" style="color:var(--green);">8/8</p>
+              <p class="preview-stat-l">Cotisations reçues</p>
+            </div>
+            <div class="preview-stat">
+              <p class="preview-stat-n" style="color:var(--amber);">Tour 3</p>
+              <p class="preview-stat-l">Sur 8 membres</p>
+            </div>
+          </div>
+        </div>
+        <div class="preview-bottom">
+          <div class="preview-panel">
+            <p class="panel-title">Progression du cycle</p>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width:37%;"></div>
+            </div>
+            <div class="progress-label">
+              <span>Tour 3 / 8</span>
+              <span style="color:var(--blue);">37%</span>
+            </div>
+          </div>
+          <div class="preview-panel">
+            <p class="panel-title">Prochain bénéficiaire</p>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:4px;">
+              <div class="avatar" style="width:40px;height:40px;font-size:14px;">AB</div>
+              <div>
+                <p style="font-size:14px;font-weight:500;">Amina Bello</p>
+                <p style="font-size:12px;color:var(--muted);">Dans 12 jours · 120 000 FCFA</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

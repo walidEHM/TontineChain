@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TontineChain - Solution décentralisée de tontines sécurisées sur blockchain pour l'inclusion financière au Bénin" />
+  <title>TontineChain — Tontines sécurisées sur blockchain</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Space+Grotesk:wght@300..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:        #F5F7FF;
+      --surface:   #FFFFFF;
+      --surface2:  #EEF1FB;
+      --border:    #DDE2F4;
+      --blue:      #2B50D8;
+      --blue-light:#4C6FE8;
+      --blue-pale: #E6EBFD;
+      --navy:      #0D1535;
+      --muted:     #5A6A9A;
+      --hint:      #8899CC;
+      --green:     #1AAF78;
+      --green-bg:  #E6F8F1;
+      --red:       #D94F4F;
+      --red-bg:    #FDEAEA;
+      --amber:     #D4900A;
+      --amber-bg:  #FEF3D7;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--navy);
+      font-family: "Space Grotesk", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════════════════════ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      transition: box-shadow 0.3s;
+    }
+
+    .navbar.scrolled {
+      box-shadow: 0 4px 12px rgba(13, 21, 53, 0.08);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 5px;
+    }
+
+    .burger span {
+      width: 25px;
+      height: 3px;
+      background: var(--navy);
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    .burger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .burger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .burger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTIONS GÉNÉRALES
+    ═══════════════════════════════════════════════════════════ */
+    .section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       HERO SECTION
+    ═══════════════════════════════════════════════════════════ */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0D1535 0%, #1a2654 50%, #2B50D8 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .hero-content {
+      text-align: center;
+      color: white;
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      animation: fadeInUp 0.8s ease 0.2s backwards;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+      animation: fadeInUp 0.8s ease 0.4s backwards;
+    }
+
+    .btn-primary {
+      background: white;
+      color: var(--blue);
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      margin-left: 1rem;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: var(--blue);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       PROBLÈME SECTION
+    ═══════════════════════════════════════════════════════════ */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .problem-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(43, 80, 216, 0.1);
+    }
+
+    .problem-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--red-bg);
+      color: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.5rem;
+    }
+
+    .problem-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--red);
+      margin-bottom: 0.5rem;
+    }
+
+    .problem-label {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SOLUTION BLOCKCHAIN
+    ═══════════════════════════════════════════════════════════ */
+    .solution {
+      background: var(--surface);
+    }
+
+    .solution-diagram {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      margin: 3rem 0;
+      flex-wrap: wrap;
+    }
+
+    .solution-node {
+      text-align: center;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .solution-node-icon {
+      width: 100px;
+      height: 100px;
+      background: var(--blue-pale);
+      color: var(--blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 auto 1rem;
+      transition: all 0.3s;
+    }
+
+    .solution-node:hover .solution-node-icon {
+      transform: scale(1.1);
+      background: var(--blue);
+      color: white;
+    }
+
+    .solution-benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .benefit-card {
+      background: var(--blue-pale);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(43, 80, 216, 0.15);
+    }
+
+    .benefit-card i {
+      font-size: 2rem;
+      color: var(--blue);
+      margin-bottom: 1rem;
+    }
+
+    .benefit-card h3 {
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       FONCTIONNALITÉS
+    ═══════════════════════════════════════════════════════════ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      color: var(--blue);
+      margin-bottom: 1rem;
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover .feature-icon {
+      color: var(--amber);
+      transform: scale(1.1);
+    }
+
+    .feature-card h3 {
+      font-family: 'Syne', sans-serif;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       CHIFFRES & IMPACT
+    ═══════════════════════════════════════════════════════════ */
+    .impact {
+      background: var(--surface2);
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .impact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .impact-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 32px rgba(43, 80, 216, 0.15);
+    }
+
+    .impact-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+      line-height: 1;
+    }
+
+    .impact-label {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       COMMENT ÇA MARCHE
+    ═══════════════════════════════════════════════════════════ */
+    .steps {
+      background: var(--surface);
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 3rem auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 100%;
+      background: var(--border);
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .step:nth-child(odd) {
+      flex-direction: row;
+    }
+
+    .step:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .step-content {
+      flex: 1;
+      background: var(--blue-pale);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      margin: 0 2rem;
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      background: var(--blue);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .step h3 {
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .step p {
+      color: var(--muted);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       POURQUOI BLOCKCHAIN
+    ═══════════════════════════════════════════════════════════ */
+    .blockchain-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .blockchain-text h3 {
+      font-family: 'Syne', sans-serif;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+
+    .blockchain-advantages {
+      background: var(--navy);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+    }
+
+    .advantage-item {
+      display: flex;
+      align-items: start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s;
+    }
+
+    .advantage-item:hover {
+      transform: translateX(10px);
+    }
+
+    .advantage-item i {
+      color: var(--green);
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .advantage-item h4 {
+      margin-bottom: 0.3rem;
+    }
+
+    .advantage-item p {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .blockchain-note {
+      background: var(--green-bg);
+      color: var(--green);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-sm);
+      margin-top: 1.5rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ÉQUIPE / HACKATHON
+    ═══════════════════════════════════════════════════════════ */
+    .team {
+      background: var(--surface2);
+      text-align: center;
+    }
+
+    .odd-logos {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .odd-logo {
+      width: 80px;
+      height: 80px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .odd-logo:hover {
+      transform: rotate(360deg) scale(1.1);
+      border-color: var(--blue);
+    }
+
+    .team-info {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      max-width: 700px;
+      margin: 2rem auto;
+      border: 1px solid var(--border);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       CTA FINAL
+    ═══════════════════════════════════════════════════════════ */
+    .cta {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+      color: white;
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+
+    .cta h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-cta {
+      background: white;
+      color: var(--blue);
+      padding: 16px 40px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+
+    .btn-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-cta.secondary {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+    }
+
+    .btn-cta.secondary:hover {
+      background: white;
+      color: var(--blue);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════ */
+    .footer {
+      background: var(--navy);
+      color: white;
+      padding: 3rem 2rem 1.5rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h3 {
+      font-family: 'Syne', sans-serif;
+      margin-bottom: 1rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+      color: var(--amber);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: var(--amber);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .burger {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 70%;
+        height: calc(100vh - 70px);
+        background: white;
+        flex-direction: column;
+        padding: 2rem;
+        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .btn-secondary {
+        margin-left: 0;
+        margin-top: 1rem;
+      }
+
+      .section {
+        padding: 3rem 1.5rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .blockchain-content {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline::before {
+        left: 30px;
+      }
+
+      .step {
+        flex-direction: row !important;
+      }
+
+      .step-content {
+        margin-left: 4rem;
+        margin-right: 0;
+      }
+
+      .step-number {
+        position: absolute;
+        left: 0;
+      }
+
+      .cta h2 {
+        font-size: 2rem;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .impact-number {
+        font-size: 3rem;
+      }
+
+      .problem-number {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════════════════════ -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">Tontine<span>Chain</span></a>
+      <ul class="nav-links">
+        <li><a href="#probleme">Problème</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+        <li><a href="#impact">Impact</a></li>
+        <li><a href="#comment">Comment</a></li>
+        <li><a href="#equipe">Équipe</a></li>
+      </ul>
+      <button class="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Sécurisez vos tontines avec la blockchain</h1>
+      <p>Une solution décentralisée pour éliminer les fraudes et protéger l'épargne collective de millions de Béninois</p>
+      <div>
+        <a href="#probleme" class="btn btn-primary">Découvrir</a>
+        <a href="#comment" class="btn btn-secondary">Comment ça marche</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PROBLÈME SECTION
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="probleme" class="section">
+    <h2 class="section-title reveal">Le problème des tontines traditionnelles</h2>
+    <p class="section-subtitle reveal">Chaque année, des milliers de personnes perdent leurs économies à cause de fraudes et de mauvaise gestion</p>
+    
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <div class="problem-icon">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="problem-number counter" data-target="30">0</div>
+        <p class="problem-label">% de tontines touchées par des incidents</p>
+      </div>
+      
+      <div class="problem-card reveal">
+        <div class="problem-icon">
+          <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <div class="problem-number counter" data-target="120">0</div>
+        <p class="problem-label">Millions USD de pertes annuelles</p>
+      </div>
+      
+      <div class="problem-card reveal">
+        <div class="problem-icon">
+          <i class="fas fa-female"></i>
+        </div>
+        <div class="problem-number counter" data-target="80">0</div>
+        <p class="problem-label">% de femmes victimes</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SOLUTION BLOCKCHAIN
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="solution" class="section solution">
+    <h2 class="section-title reveal">La solution : Smart Contracts</h2>
+    <p class="section-subtitle reveal">Des règles automatiques et transparentes, impossibles à contourner</p>
+    
+    <div class="solution-diagram reveal">
+      <div class="solution-node">
+        <div class="solution-node-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <p><strong>Membres</strong><br>Cotisent</p>
+      </div>
+      
+      <div class="solution-node">
+        <div class="solution-node-icon">
+          <i class="fas fa-cube"></i>
+        </div>
+        <p><strong>Smart Contract</strong><br>Gère automatiquement</p>
+      </div>
+      
+      <div class="solution-node">
+        <div class="solution-node-icon">
+          <i class="fas fa-coins"></i>
+        </div>
+        <p><strong>Cagnotte</strong><br>Libérée automatiquement</p>
+      </div>
+    </div>
+    
+    <div class="solution-benefits">
+      <div class="benefit-card reveal">
+        <i class="fas fa-eye"></i>
+        <h3>Transparence totale</h3>
+        <p>Tous les membres voient en temps réel l'état de la tontine et les transactions</p>
+      </div>
+      
+      <div class="benefit-card reveal">
+        <i class="fas fa-robot"></i>
+        <h3>Automatisation</h3>
+        <p>Les paiements sont déclenchés automatiquement selon les règles définies</p>
+      </div>
+      
+      <div class="benefit-card reveal">
+        <i class="fas fa-lock"></i>
+        <h3>Immutabilité</h3>
+        <p>Impossible de modifier les règles ou de détourner les fonds</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FONCTIONNALITÉS CLÉS
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="fonctionnalites" class="section">
+    <h2 class="section-title reveal">Fonctionnalités clés</h2>
+    <p class="section-subtitle reveal">Une plateforme complète pour gérer vos tontines en toute sécurité</p>
+    
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <i class="fas fa-plus-circle"></i>
+        </div>
+        <h3>Création simplifiée</h3>
+        <p>Créez votre tontine en quelques clics : montant, fréquence, membres</p>
+      </div>
+      
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Suivi en temps réel</h3>
+        <p>Visualisez qui a payé, le montant de la cagnotte et le prochain bénéficiaire</p>
+      </div>
+      
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Sécurité maximale</h3>
+        <p>Vos fonds sont protégés par la blockchain, aucun intermédiaire</p>
+      </div>
+      
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <i class="fas fa-bell"></i>
+        </div>
+        <h3>Notifications</h3>
+        <p>Recevez des alertes pour les cotisations et les paiements</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CHIFFRES & IMPACT
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="impact" class="section impact">
+    <h2 class="section-title reveal">Impact mesurable</h2>
+    <p class="section-subtitle reveal">Des résultats concrets pour l'inclusion financière</p>
+    
+    <div class="impact-grid">
+      <div class="impact-card reveal">
+        <div class="impact-number counter" data-target="99" data-suffix="%">0%</div>
+        <p class="impact-label">Réduction des incidents<br>(20-30% → &lt;1%)</p>
+      </div>
+      
+      <div class="impact-card reveal">
+        <div class="impact-number counter" data-target="35" data-prefix="+" data-suffix="%">+0%</div>
+        <p class="impact-label">Augmentation de l'épargne<br>(benchmark Afrique de l'Est)</p>
+      </div>
+      
+      <div class="impact-card reveal">
+        <div class="impact-number counter" data-target="80" data-suffix="%">0%</div>
+        <p class="impact-label">Femmes protégées<br>(premières victimes)</p>
+      </div>
+      
+      <div class="impact-card reveal">
+        <div class="impact-number counter" data-target="600" data-suffix="M">0M</div>
+        <p class="impact-label">USD annuels de flux<br>informels sécurisés</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       COMMENT ÇA MARCHE
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="comment" class="section steps">
+    <h2 class="section-title reveal">Comment ça marche ?</h2>
+    <p class="section-subtitle reveal">4 étapes simples pour démarrer votre tontine sécurisée</p>
+    
+    <div class="timeline">
+      <div class="step reveal">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Créez votre tontine</h3>
+          <p>Définissez le montant, la fréquence et ajoutez les membres</p>
+        </div>
+      </div>
+      
+      <div class="step reveal">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Cotisez régulièrement</h3>
+          <p>Chaque membre paie sa cotisation via son wallet crypto</p>
+        </div>
+      </div>
+      
+      <div class="step reveal">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Libération automatique</h3>
+          <p>Le smart contract transfère la cagnotte au bénéficiaire du tour</p>
+        </div>
+      </div>
+      
+      <div class="step reveal">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Cycle complet</h3>
+          <p>Le processus se répète jusqu'à ce que tous les membres aient reçu</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       POURQUOI LA BLOCKCHAIN
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="section">
+    <h2 class="section-title reveal">Pourquoi la blockchain ?</h2>
+    <p class="section-subtitle reveal">Une technologie éprouvée pour la confiance et la sécurité</p>
+    
+    <div class="blockchain-content">
+      <div class="blockchain-text reveal">
+        <h3>Une infrastructure de confiance</h3>
+        <p>La blockchain élimine le besoin d'intermédiaires et garantit que les règles sont respectées automatiquement. Chaque transaction est enregistrée de manière permanente et vérifiable par tous.</p>
+        <p style="margin-top: 1rem;">Avec TontineChain, vous bénéficiez de la même technologie qui sécurise des milliards de dollars dans le monde entier.</p>
+      </div>
+      
+      <div class="blockchain-advantages reveal">
+        <div class="advantage-item">
+          <i class="fas fa-check-circle"></i>
+          <div>
+            <h4>Immutabilité</h4>
+            <p>Les transactions ne peuvent pas être modifiées ou supprimées</p>
+          </div>
+        </div>
+        
+        <div class="advantage-item">
+          <i class="fas fa-check-circle"></i>
+          <div>
+            <h4>Transparence</h4>
+            <p>Tous les membres peuvent vérifier l'état de la tontine</p>
+          </div>
+        </div>
+        
+        <div class="advantage-item">
+          <i class="fas fa-check-circle"></i>
+          <div>
+            <h4>Sécurité cryptographique</h4>
+            <p>Protection maximale contre les fraudes et piratages</p>
+          </div>
+        </div>
+        
+        <div class="advantage-item">
+          <i class="fas fa-check-circle"></i>
+          <div>
+            <h4>Frais minimes</h4>
+            <p>Moins de 10 FCFA par transaction sur Celo</p>
+          </div>
+        </div>
+        
+        <div class="blockchain-note">
+          💰 Moins de 10 FCFA par transaction
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       ÉQUIPE / HACKATHON
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="equipe" class="section team">
+    <h2 class="section-title reveal">Un projet pour l'inclusion financière</h2>
+    <p class="section-subtitle reveal">Aligné sur les Objectifs de Développement Durable</p>
+    
+    <div class="odd-logos reveal">
+      <div class="odd-logo" title="ODD 1 : Pas de pauvreté">
+        <span>1</span>
+      </div>
+      <div class="odd-logo" title="ODD 8 : Travail décent et croissance économique">
+        <span>8</span>
+      </div>
+      <div class="odd-logo" title="ODD 10 : Inégalités réduites">
+        <span>10</span>
+      </div>
+      <div class="odd-logo" title="ODD 16 : Paix, justice et institutions efficaces">
+        <span>16</span>
+      </div>
+    </div>
+    
+    <div class="team-info reveal">
+      <h3 style="font-family: 'Syne', sans-serif; color: var(--navy); margin-bottom: 1rem;">MIABE HACKATHON 2026</h3>
+      <p style="color: var(--muted); margin-bottom: 1rem;">Projet réalisé dans le cadre du <strong>MIABE HACKATHON 2026 – D02 Inclusion financière & DeFi</strong></p>
+      <p style="color: var(--blue); font-weight: 600; font-size: 1.1rem; margin-bottom: 1rem;">🚀 Équipe : Fintech Vision</p>
+      <p style="color: var(--muted);">Notre mission : démocratiser l'accès aux services financiers pour tous les Béninois, en particulier les femmes et les communautés rurales.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CTA FINAL
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="cta">
+    <h2>Prêt à sécuriser votre tontine ?</h2>
+    <p>Rejoignez la révolution de l'épargne collective décentralisée</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-cta">Tester la démo</a>
+      <a href="cahier-des-charges.html" class="btn-cta secondary">En savoir plus</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>TontineChain</h3>
+        <p style="color: rgba(255, 255, 255, 0.7);">Solution décentralisée de tontines sécurisées sur blockchain pour l'inclusion financière au Bénin.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Liens rapides</h3>
+        <ul>
+          <li><a href="#probleme">Problème</a></li>
+          <li><a href="#solution">Solution</a></li>
+          <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+          <li><a href="#impact">Impact</a></li>
+          <li><a href="#comment">Comment ça marche</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Ressources</h3>
+        <ul>
+          <li><a href="cahier-des-charges.html">Cahier des charges</a></li>
+          <li><a href="charte_graphique.html">Charte graphique</a></li>
+          <li><a href="#">Documentation technique</a></li>
+          <li><a href="#">Maquettes</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="mailto:contact@tontinechain.bj">contact@tontinechain.bj</a></li>
+          <li><a href="#">Support</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> TontineChain - Équipe Fintech Vision - MIABE HACKATHON 2026 - Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════════════════════ -->
+  <script>
+    // ═══════════════════════════════════════════════════════════
+
+    // MENU BURGER MOBILE
+    // ═══════════════════════════════════════════════════════════
+    const burger = document.querySelector('.burger');
+    const navLinks = document.querySelector('.nav-links');
+    const navbar = document.querySelector('.navbar');
+
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Fermer le menu au clic sur un lien
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        burger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // ═══════════════════════════════════════════════════════════
+    // NAVBAR SCROLL EFFECT
+    // ═══════════════════════════════════════════════════════════
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // ═══════════════════════════════════════════════════════════
+    // INTERSECTION OBSERVER POUR ANIMATIONS
+    // ═══════════════════════════════════════════════════════════
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observer tous les éléments avec la classe .reveal
+    document.querySelectorAll('.reveal').forEach(el => {
+      observer.observe(el);
+    });
+
+    // ═══════════════════════════════════════════════════════════
+    // COMPTEURS ANIMÉS
+    // ═══════════════════════════════════════════════════════════
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+          animateCounter(entry.target);
+          entry.target.classList.add('counted');
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => {
+      counterObserver.observe(counter);
+    });
+
+    function animateCounter(element) {
+      const target = parseInt(element.getAttribute('data-target'));
+      const prefix = element.getAttribute('data-prefix') || '';
+      const suffix = element.getAttribute('data-suffix') || '';
+      const duration = 2000; // 2 secondes
+      const increment = target / (duration / 16); // 60 FPS
+      let current = 0;
+
+      const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+          element.textContent = prefix + Math.floor(current) + suffix;
+          requestAnimationFrame(updateCounter);
+        } else {
+          element.textContent = prefix + target + suffix;
+        }
+      };
+
+      updateCounter();
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // DÉFILEMENT FLUIDE
+    // ═══════════════════════════════════════════════════════════
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href !== '') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+      });
+    });
+
+    // ═══════════════════════════════════════════════════════════
+    // ANNÉE DYNAMIQUE DANS LE FOOTER
+    // ═══════════════════════════════════════════════════════════
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ═══════════════════════════════════════════════════════════
+    // ANIMATION DES LOGOS ODD AU SURVOL
+    // ═══════════════════════════════════════════════════════════
+    document.querySelectorAll('.odd-logo').forEach(logo => {
+      logo.addEventListener('mouseenter', function() {
+        this.style.transform = 'rotate(360deg) scale(1.1)';
+      });
+      
+      logo.addEventListener('mouseleave', function() {
+        this.style.transform = 'rotate(0deg) scale(1)';
+      });
+    });
+
+    // ═══════════════════════════════════════════════════════════
+    // CONSOLE MESSAGE
+    // ═══════════════════════════════════════════════════════════
+    console.log('%c🔗 TontineChain', 'font-size: 24px; font-weight: bold; color: #2B50D8;');
+    console.log('%cMIABE HACKATHON 2026 - D02 Inclusion financière & DeFi', 'font-size: 14px; color: #5A6A9A;');
+    console.log('%c✨ Sécurisez vos tontines avec la blockchain', 'font-size: 12px; color: #1AAF78;');
+  </script>
+
+</body>
+</html>
