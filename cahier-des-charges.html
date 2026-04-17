@@ -295,17 +295,18 @@
     
     <div class="subsection-title">3.1. Blockchain & smart contract</div>
     <ul class="bullet-list">
-      <li><strong>Réseau recommandé :</strong> Celo (cUSD/cEUR) ou Polygon (testnet) – frais faibles, stablecoins disponibles.</li>
+      <li><strong>Réseau cible :</strong> Celo testnet Alfajores – stablecoins natifs (cUSD, cEUR), frais très bas, intégration simple avec Valora wallet.</li>
+      <li><strong>Déploiement MVP :</strong> Le MVP sera déployé sur le testnet Celo Alfajores pour une démo gratuite et accessible.</li>
       <li><strong>Langage :</strong> Solidity (version 0.8.x).</li>
       <li><strong>Dépendances :</strong> OpenZeppelin (ReentrancyGuard, Ownable si nécessaire, mais éviter la centralisation).</li>
       <li><strong>Immutabilité :</strong> Une fois le contrat déployé, les règles (montant, fréquence, ordre) ne peuvent pas être modifiées.</li>
-      <li><strong>Transparence :</strong> Tous les membres peuvent lire l’état du contrat via un explorateur ou l’interface.</li>
+      <li><strong>Transparence :</strong> Tous les membres peuvent lire l'état du contrat via un explorateur ou l'interface.</li>
     </ul>
 
     <div class="subsection-title">3.2. Frontend (interface utilisateur)</div>
     <ul class="bullet-list">
       <li><strong>Framework :</strong> React (Next.js optionnel) + TypeScript recommandé.</li>
-      <li><strong>Connexion wallet :</strong> RainbowKit (pour Ethereum/Polygon) ou @celo/dappkit (pour Celo).</li>
+      <li><strong>Connexion wallet :</strong> @celo/dappkit ou Valora wallet pour une expérience mobile optimale.</li>
       <li><strong>Intégration smart contract :</strong> ethers.js ou web3.js.</li>
       <li><strong>Hébergement :</strong> Vercel, Netlify ou IPFS (décentralisation).</li>
       <li><strong>Responsive :</strong> compatible mobile (les utilisateurs au Bénin utilisent surtout des smartphones).</li>
@@ -314,7 +315,7 @@
     <div class="subsection-title">3.3. Gestion des identités & paiements</div>
     <ul class="bullet-list">
       <li>Membres identifiés par <strong>adresse de wallet</strong>. Alias stocké off-chain (optionnel).</li>
-      <li>Cotisations en <strong>stablecoin</strong> (cUSD sur Celo, USDC sur Polygon) pour éviter la volatilité.</li>
+      <li>Cotisations en <strong>cUSD</strong> (stablecoin natif Celo) pour éviter la volatilité et bénéficier de frais minimaux.</li>
       <li>Le contrat détient les fonds jusqu’à la libération automatique – <strong>pas d’intermédiaire humain</strong>.</li>
     </ul>
   </div>
@@ -388,26 +389,9 @@
     </ul>
   </div>
 
-  <!-- 8. PLANNING INDICATIF -->
+  <!-- 8. LIVRABLES ATTENDUS -->
   <div class="section">
-    <p class="section-label">08 — Organisation</p>
-    <h2>Planning hackathon (3 jours)</h2>
-    <table class="doc-table">
-      <thead><tr><th>Jour / Bloc</th><th>Activité</th></tr></thead>
-      <tbody>
-        <tr><td>Jour 1 (matin)</td><td>Finaliser documentation, maquettes, site vitrine (phase 1).</td></tr>
-        <tr><td>Jour 1 (après-midi)</td><td>Écrire le smart contract (Solidity), tests unitaires avec Hardhat.</td></tr>
-        <tr><td>Jour 2 (matin)</td><td>Développer l’interface React + connexion wallet.</td></tr>
-        <tr><td>Jour 2 (après-midi)</td><td>Intégrer le contrat, gérer les appels (payer, afficher statuts).</td></tr>
-        <tr><td>Jour 3 (matin)</td><td>Tester les cas limites (impayés, dissolution). Préparer la démo live.</td></tr>
-        <tr><td>Jour 3 (après-midi)</td><td>Préparer le pitch (slides, démo, arguments d’impact).</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- 9. LIVRABLES ATTENDUS -->
-  <div class="section">
-    <p class="section-label">09 — Production</p>
+    <p class="section-label">08 — Production</p>
     <h2>Livrables par phase</h2>
     <ul class="bullet-list">
       <li><strong>Phase 1 :</strong> Doc PDF + maquettes + site vitrine + description blockchain.</li>
@@ -416,9 +400,9 @@
     </ul>
   </div>
 
-  <!-- 10. INDICATEURS D’IMPACT POUR LE PITCH -->
+  <!-- 9. INDICATEURS D'IMPACT POUR LE PITCH -->
   <div class="section">
-    <p class="section-label">10 — Impact mesurable</p>
+    <p class="section-label">09 — Impact mesurable</p>
     <h2>Indicateurs clés (pitch)</h2>
     <div class="stats-grid">
       <div class="stat-card-impact">
